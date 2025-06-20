@@ -712,7 +712,6 @@ body, input, textarea, button {
   font-size: 2rem;
   cursor: pointer;
   z-index: 30;
-  color: var(--dark-gray);
 }
 
 /* 2) Slide-out mobile menu panel */
@@ -866,22 +865,94 @@ body, input, textarea, button {
   }
 }
 
+/* === MOBILE MENU ITEM ACCENT BAR === */
 @media only screen and (max-width: 767px) {
-  /* Center all about sections on mobile */
-  .about-section {
-    flex-direction: column;
-    text-align: center;
-    padding: 2rem 1rem;
+  .mobile-menu .nav-list li {
+    position: relative;
+    padding-left: 1.5rem; /* make room for the bar */
   }
-  .about-container {
-    flex-direction: column;
-    gap: 1.5rem;
+
+  .mobile-menu .nav-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;              /* thickness of the bar */
+    height: 100%;            /* span full link height */
+    background: var(--primary-orange);
+    border-radius: 2px;
   }
-  .about-image,
-  .about-text {
-    width: 100%;
+}
+
+
+/* ─── SERVICES GRID ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns on desktop */
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+/* ─── CARD LAYOUT ─── */
+.service-card {
+  position: relative;
+  padding-top: 71.4%;              /* 350×250 aspect ratio */
+  overflow: hidden;
+  border-radius: 8px;
+  background: #000;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ─── IMAGE ─── */
+.service-card img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s;
+}
+
+/* ─── CAPTION (always visible) ─── */
+.service-card .caption {
+  position: absolute;
+  bottom: 8px; left: 8px;
+  color: #fff;
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+/* ─── DESCRIPTION (hover overlay) ─── */
+.service-card .description {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 80%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+/* ─── HOVER STATES ─── */
+.service-card:hover img {
+  opacity: 0.8;
+}
+.service-card:hover .description {
+  opacity: 1;
+}
+
+/* ─── RESPONSIVE: MOBILE (≤ 768px) ─── */
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;   /* single column on mobile */
   }
-  .about-image img {
-    max-width: 80%;
-    margin: 1rem auto;
-  }
+}
